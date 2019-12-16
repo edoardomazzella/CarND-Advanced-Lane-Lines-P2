@@ -17,14 +17,17 @@ The goals / steps of this project are the following:
 * Warp the detected lane boundaries back onto the original image.
 * Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.
 
-[//]: # (Image References)
+[//]: # "Image References"
 
 [image1]: ./examples/undistort_output.png "Undistorted"
 [image2]: ./test_images/test1.jpg "Road Transformed"
-[image3]: ./examples/binary_combo_example.jpg "Binary Example"
+[image3]: ./doc_images/gr_binary.jpg "Gradient Binary"
 [image4]: ./examples/warped_straight_lines.jpg "Warp Example"
 [image5]: ./examples/color_fit_lines.jpg "Fit Visual"
 [image6]: ./examples/example_output.jpg "Output"
+[image7]: ./doc_images/undist.jpg "Undistorted road"
+[image8]: ./doc_images/color_binary.jpg ""Color Selection""
+[image9]: ./doc_images/combined_binary.jpg ""Resulting Binary""
 [video1]: ./project_video.mp4 "Video"
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
@@ -43,7 +46,7 @@ You're reading it!
 
 #### 1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
 
-The code for this step is contained in the first code cell of the IPython notebook located in "./examples/example.ipynb" (or in lines # through # of the file called `some_file.py`).  
+The code for this step is contained in the first code cell of the IPython notebook located in "./P2.ipynb".  
 
 I start by preparing "object points", which will be the (x, y, z) coordinates of the chessboard corners in the world. Here I am assuming the chessboard is fixed on the (x, y) plane at z=0, such that the object points are the same for each calibration image.  Thus, `objp` is just a replicated array of coordinates, and `objpoints` will be appended with a copy of it every time I successfully detect all chessboard corners in a test image.  `imgpoints` will be appended with the (x, y) pixel position of each of the corners in the image plane with each successful chessboard detection.  
 
@@ -58,11 +61,27 @@ I then used the output `objpoints` and `imgpoints` to compute the camera calibra
 To demonstrate this step, I will describe how I apply the distortion correction to one of the test images like this one:
 ![alt text][image2]
 
+In order to do it the points computed during the camera calibration step have been used to undistort the image through the *cv2.calibrateCamera()* function obtaining the following result:
+
+![alt text][image7]
+
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
-I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at lines # through # in `another_file.py`).  Here's an example of my output for this step.  (note: this is not actually from one of the test images)
+I used a combination of color and gradient thresholds to generate a binary image. 
+
+In the 8th code block the gradient thresholding functions are implemented providing an API that permits to mix different techniques like Sobel X, Sobel Y, magnitude and direction thresholding. The final gradient binary mask is obtained through the combination of masks in the 9th code block.
+
+Here's an example of my output for this step:
 
 ![alt text][image3]
+
+In the 10th block of code a function for color selection is defined in order to select white and yellow pixels of the image:
+
+![alt text][image8]
+
+Applying the element-wise or operator we obtain the following binary image that will be used to detect lines after perspective distortion:
+
+![alt text][image9]
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
@@ -83,9 +102,9 @@ dst = np.float32(
 
 This resulted in the following source and destination points:
 
-| Source        | Destination   | 
-|:-------------:|:-------------:| 
-| 585, 460      | 320, 0        | 
+| Source        | Destination   |
+|:-------------:|:-------------:|
+| 585, 460      | 320, 0        |
 | 203, 720      | 320, 720      |
 | 1127, 720     | 960, 720      |
 | 695, 460      | 960, 0        |
