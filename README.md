@@ -1,4 +1,4 @@
-**Advanced Lane Finding Project**
+# **Advanced Lane Finding Project**
 
 The goals / steps of this project are the following:
 
@@ -20,8 +20,8 @@ The goals / steps of this project are the following:
 [image5]: ./examples/color_fit_lines.jpg "Fit Visual"
 [image6]: ./output_images/straight_lines1.jpg "Output"
 [image7]: ./doc_images/undist.jpg "Undistorted road"
-[image8]: ./doc_images/color_binary.jpg ""Color Selection""
-[image9]: ./doc_images/combined_binary.jpg ""Resulting Binary""
+[image8]: ./doc_images/color_binary.jpg "Color Selection"
+[image9]: ./doc_images/combined_binary.jpg "Resulting Binary"
 [video1]: ./project_video.mp4 "Video"
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
